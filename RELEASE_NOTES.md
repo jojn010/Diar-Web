@@ -1,3 +1,15 @@
+# Diar Web 1.0.1 — Keep exploring
+
+- Prices use English digits and whole-dollar grouping in both languages, for example `$73,500`. Arabic/Persian digits entered in the price field normalize to English digits.
+- Gentle, one-time fade/lift reveals for below-the-fold sections and cards. Visible content stays visible; reduced-motion, keyboard focus and observer-unavailable fallbacks are included.
+- Every available property page ends with a compact “More homes to explore” section: up to three other published homes, matching sale/rent and type first, with working favorite buttons and a browse-all link. The current home and duplicate records are excluded. Empty inventory is explained honestly.
+
+Verification: web/shared tests and executable JAR build passed; price/recommendation regressions, 183 EN/AR translation keys, desktop/mobile RTL layouts, price entry, scroll reveals, keyboard focus and mini-card navigation checked with isolated fixtures. CI runs five JavaScript regression tests in addition to 13 web and 6 shared JVM tests. Actual OS reduced-motion switching was not exercised. No database changes or Android changes are included. See QA.md for precise boundaries.
+
+Includes the updated executable JAR. This remains a development preview; production hosting is not provisioned.
+
+---
+
 # Diar Web 1.0.0 — A home for every story
 
 A Spring Boot companion to Diar Android, sharing the same Supabase accounts, listings, photos and private account favorites. Includes English/Arabic and RTL, responsive cream/teal/sage styling, real property browsing and filters, shared cards/details, owner management, and the three-step listing composer with one integer price, negotiability, sale/rent, type/floors, map/current-location choices and photo uploads.

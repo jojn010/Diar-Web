@@ -14,10 +14,25 @@ public class BrowserQa {
         var app=new SpringApplication(DiarApplication.class,Fixture.class);
         app.setDefaultProperties(Map.of("server.port","8081","server.address","127.0.0.1"));app.run("--server.port=8081","--server.address=127.0.0.1");
     }
+    static Map<String,Listing> fixtureHomes() {
+        var homes=new LinkedHashMap<String,Listing>();
+        homes.put(ApiControllerTest.ID,ApiControllerTest.home());
+        String[][] fixtures={{"00000000-0000-4000-8000-000000000001","Sunlit courtyard","81500","sale","house"},
+            {"00000000-0000-4000-8000-000000000002","Garden villa","320000","sale","villa"},
+            {"00000000-0000-4000-8000-000000000003","City apartment","1500","rent","apartment"}};
+        for(var fixture:fixtures) {
+            var row=new LinkedHashMap<>(ApiControllerTest.home().toRow());
+            row.put("id",fixture[0]);row.put("title",fixture[1]);row.put("price",Long.parseLong(fixture[2]));
+            row.put("purpose",fixture[3]);row.put("type",fixture[4]);row.put("description","Isolated QA fixture. Not a live listing.");
+            row.put("photo_path",ApiControllerTest.OWNER+"/"+fixture[0]+"/fixture.jpg");
+            homes.put(fixture[0],Listing.fromRow(row));
+        }
+        return homes;
+    }
     @TestConfiguration static class Fixture {
         @Bean @Primary SupabaseService fixtureCloud(ObjectMapper json) {
             return new SupabaseService(new SupabaseConfig.Settings("",""),json) {
-                final Map<String,Listing> homes=new ConcurrentHashMap<>(Map.of(ApiControllerTest.ID,ApiControllerTest.home()));
+                final Map<String,Listing> homes=new ConcurrentHashMap<>(fixtureHomes());
                 final Map<String,Set<String>> saved=new ConcurrentHashMap<>();
                 @Override public boolean enabled(){return true;}
                 @Override public Map<String,Object> authenticate(String email,String password,String name,boolean signup) {

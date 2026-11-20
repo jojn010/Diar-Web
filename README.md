@@ -4,7 +4,8 @@ The Spring Boot companion to the [Diar Android app](https://github.com/jojn010/D
 
 ## What works
 
-- Browse actual Supabase listings, search by place/title and filter sale/rent or property type.
+- Browse actual Supabase listings, search by place/title and filter sale/rent or property type. Property pages end with up to three other published homes, prioritizing the same purpose/type and excluding the current home.
+- Prices always use English digits (for example `$73,500`) in English and Arabic, including price entry. Below-the-fold sections ease in once; reduced-motion preferences and keyboard focus keep content immediately accessible.
 - Sign in or register with the same Supabase email/password accounts as Android.
 - Publish through three steps: home/type/floors/area, current location or map pin, then one integer USD price, negotiable checkbox, photo and description. Rent prices are monthly.
 - View and edit your own listings; deletion requires confirmation. Photo replacement cleans up the old object after a successful save.
@@ -49,7 +50,13 @@ Open [localhost:8080](http://localhost:8080). The default binding is loopback. A
 
 ```bash
 ./tools/check_web.sh
-java -jar build/libs/diar-web-1.0.0.jar
+java -jar build/libs/diar-web-1.0.1.jar
+```
+
+CI also runs the browser-independent price/recommendation regressions with Node 24 (Node is not needed to run the website):
+
+```bash
+node --test src/test/js/*.test.mjs
 ```
 
 Tests use mocked controllers and a local fake Supabase HTTP server. They do not create users, send email or write to a live project. Coverage includes CSRF, server-side sessions, owner forgery, fractional prices, Arabic data, image validation/resizing, token refresh, favorites pagination/idempotency and failed-photo cleanup. Shared JVM tests cover database mapping and offline favorite merges. See [QA.md](QA.md) for the checks actually executed and their limits.

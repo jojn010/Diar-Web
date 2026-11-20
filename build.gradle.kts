@@ -1,6 +1,6 @@
 plugins { java; id("org.springframework.boot") version "3.5.16" }
 group = "com.diar"
-version = "1.0.0"
+version = "1.0.1"
 repositories { mavenCentral() }
 allprojects {
     repositories { mavenCentral() }

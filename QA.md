@@ -1,4 +1,15 @@
-# Verification — 20–21 November 2026
+# Verification
+
+## Version 1.0.1 — 21 November 2026
+
+- `./tools/check_web.sh` passed: 13 web tests, 6 shared JVM tests and executable JAR build.
+- Price/recommendation assertions passed locally: English digits and whole-dollar grouping, current-home/duplicate exclusion, same-purpose/type ordering, maximum three cards, no collection mutation and empty inventory. Five Node test cases also run in CI. JavaScript syntax and all 183 EN/AR translation keys checked.
+- Isolated browser QA passed in English and Arabic/RTL: prices on cards/details; Arabic price entry `٧٣٥٠٠` becoming `73500`; navigation from a mini card to a different detail page with scroll reset; current-home exclusion; scroll reveals settling to visible; keyboard focus revealing a card. No live listings were changed.
+- Desktop layout (1265px document width) and mobile layout (375px document width in a 390px viewport) inspected with no horizontal overflow. Mini cards form a three-column desktop row and a single mobile column. This supersedes the initial release’s desktop visual QA limitation below.
+- HTTP checks returned 200 for the fixture listing deep link, four-home inventory, JavaScript module and scroll script; the `.mjs` module has a JavaScript content type.
+- Reduced-motion CSS and live preference handling are implemented; an actual browser/OS preference toggle was not exercised. No fresh Android, live authenticated cross-client or container test was needed or performed for these website-only changes. Initial integration/deployment limits below still apply.
+
+## Initial release 1.0.0 — 20–21 November 2026
 
 ## Executed
 
